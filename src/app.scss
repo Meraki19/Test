@@ -1,0 +1,35 @@
+body{
+    background: #dce3ea;
+}
+.table-bordered {
+    border: 2px solid #dee2e6;
+}
+.table{ 
+    border-spacing: 0px;
+    border-radius: 10px;
+    font-size: 12px;
+    position: relative;
+    border-collapse: collapse; 
+    thead{
+        tr{
+            background-color: #4a4e74;
+            color: white;
+            font-size: 14px;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0; 
+            box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+        th{
+            border-bottom: none;
+        }
+    }
+    }
+    td{
+        vertical-align: middle;
+        border-top: 1px solid #dee2e6;
+        p{
+            margin-bottom: 0;
+        }
+    }
+}
+
