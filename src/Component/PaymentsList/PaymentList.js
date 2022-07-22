@@ -46,7 +46,7 @@ function PaymentList() {
             {error ? <Alert variant="danger" className="mt-4 text-center" >
                 <Alert.Heading >Something went wrong !!</Alert.Heading>
             </Alert> :
-                <div data-testid="paymentlist" className="payment-list-container">
+                <div className="payment-list-container">
                     <h3 className="my-3 text-uppercase">Payment History</h3>
                     <div className="mb-3 filter-section">
                         <h5>Filter by:</h5>
