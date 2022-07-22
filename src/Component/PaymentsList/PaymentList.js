@@ -1,13 +1,12 @@
 
 import React, { useEffect, useRef, useState } from "react";
-
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import PaymentItem from '../PaymentItem/PaymentItem'
-
+import  {Table,Button,Form,Alert} from 'react-bootstrap'
 import useFetch from "../../CustomHooks/useFetch";
 import {filterPaymenBytStatus} from "../../Helper/filterList"
+
+import CustomSpinner from "../Spinner/Spinner";
+import PaymentItem from '../PaymentItem/PaymentItem'
+
 
 function PaymentList() {
     
@@ -26,7 +25,7 @@ function PaymentList() {
     }, [paymentLists])
 
     function loadMorePaymentListHandler() {
-        setLocation(process.env.REACT_APP_BASEURL+"?pageIndex=" + metaData.nextPageIndex);
+        setLocation(process.env.REACT_APP_BASEURL+"?pageIndex22=" + metaData.nextPageIndex);
     }
 
     function paymentStatusFilterHandler(e) {
@@ -42,14 +41,18 @@ function PaymentList() {
         }
     }
     return (
-        <div data-testid="paymentlist" className="payment-history-list">
+        
+        <div data-testid="paymentlist" className="payment-history-container">
+            {error?<Alert variant="danger" className="mt-4 text-center" ><Alert.Heading >Something went wrong !!</Alert.Heading></Alert>:
+            <div data-testid="paymentlist" className="payment-list-container">
             <h3 className="my-3 text-uppercase">Payment History</h3>
-            {!error && <div className="mb-3 filter-section">
+            <div className="mb-3 filter-section">
                 <h5>Filter by:</h5>
                 <Form.Check tabIndex="1" aria-checked="false" role="switch" aria-labelledby="status"
                     type="switch" id="custom-switch" label="Status" onClick={paymentStatusFilterHandler} />
-            </div>}
-            {loading ? (<span>Getting payment info ..</span>) :
+            </div>
+                {loading ? (<CustomSpinner loadingtext="Getting payment info" />):
+                
                 <Table hover variant="light" tabIndex="2">
                     <thead>
                         <tr>
@@ -69,9 +72,11 @@ function PaymentList() {
                     </tbody>
                 </Table>
             }
-            {!error && <Button data-testid="loadmorebtn"
+           <Button data-testid="loadmorebtn"
                 tabIndex="3" disabled={!metaData.hasMoreElements}
-                onClick={loadMorePaymentListHandler}>Load more</Button>}
+                onClick={loadMorePaymentListHandler}>Load more</Button>
+                </div>
+            }
         </div>
     )
 }

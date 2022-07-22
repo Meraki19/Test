@@ -15,7 +15,7 @@ const ACTIONS = {
 function reducer(state, action) {
     switch (action.type) {
         case ACTIONS.API_REQUEST:
-            return { ...state, resultData: state.resultData, metaData: [], loading: true }
+            return { ...state, resultData: state.resultData, metaData: [], loading: true,error:false }
         case ACTIONS.FETCH_DATA:
             let combinePaymentList = state.resultData.concat(action.payload.results)
            
@@ -37,18 +37,19 @@ function useFetch(url) {
     useEffect(() => {
         let isApiSubscribed = true;
         dispatch({ type: ACTIONS.API_REQUEST, payload: [] });
-        
+
         axios.get(url)
             .then((response) => {
                 if (isApiSubscribed ) {
                 dispatch({ type: ACTIONS.FETCH_DATA, payload: response.data })
                 }
             }).catch((err) => {
-                console.log(error)
+                
+                console.log(err)
                 dispatch({ type: ACTIONS.ERR, payload: err })
             });
         return () => {
-            console.log("clean up running..,cancel the subscription")
+            console.log("clean up running..cancel the subscription")
             isApiSubscribed = false;
         }
     }, [url])
